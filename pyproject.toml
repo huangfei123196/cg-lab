@@ -1,0 +1,16 @@
+[project]
+name = "cg-lab"
+version = "0.1.0"
+description = "Computer graphics lab 1: Taichi gravity particle swarm"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "imageio>=2.34.0",
+    "numpy>=1.26.0",
+    "pillow>=10.0.0",
+    "taichi>=1.7.4",
+]
+
+[tool.uv]
+package = false
+
