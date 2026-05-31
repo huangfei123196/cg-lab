@@ -21,7 +21,7 @@ CG-Lab/
     └── render_demo.py
 ```
 
-`config.py` 保存粒子数量、引力强度、阻尼系数、窗口大小和颜色等参数。`physics.py` 保存 Taichi field 与 GPU 并行计算 kernel。`main.py` 是程序入口，负责初始化 Taichi、读取鼠标位置并渲染粒子窗口。
+`config.py` 保存粒子数量、引力强度、阻尼系数、窗口大小和颜色等参数。`physics.py` 保存 Taichi field 与 GPU 并行计算 kernel。`main.py` 是程序入口，负责初始化 Taichi、读取鼠标位置并渲染粒子窗口；README 中的 GIF 也由 `main.py` 的录制模式生成。
 
 ## 二、代码逻辑
 
@@ -49,3 +49,4 @@ uv run -m src.Work0.main
 
 ![粒子群演示](assets/demo.gif)
 
+上图为项目入口 `src.Work0.main` 实际运行后录制得到的 GUI 画面。
