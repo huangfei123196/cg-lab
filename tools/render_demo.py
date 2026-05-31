@@ -34,33 +34,33 @@ def _mouse_path(frame: int, total: int) -> tuple[float, float]:
 
 def _draw_frame(points: np.ndarray, mouse: tuple[float, float]) -> Image.Image:
     width, height = WINDOW_RES
-    bg = _hex_to_rgb(BACKGROUND_COLOR)
-    particle = _hex_to_rgb(PARTICLE_COLOR)
-    attractor = (255, 233, 128)
+    bg = (246, 248, 252)
+    particle = (0, 86, 179)
+    glow_color = _hex_to_rgb(PARTICLE_COLOR)
+    attractor = (220, 38, 38)
 
     image = Image.new("RGB", WINDOW_RES, bg)
     glow = Image.new("RGBA", WINDOW_RES, (0, 0, 0, 0))
     draw_glow = ImageDraw.Draw(glow, "RGBA")
-    draw = ImageDraw.Draw(image, "RGBA")
 
     pixel_points = np.empty_like(points)
     pixel_points[:, 0] = points[:, 0] * width
     pixel_points[:, 1] = (1.0 - points[:, 1]) * height
 
-    for x, y in pixel_points[::2]:
-        draw_glow.ellipse((x - 2, y - 2, x + 2, y + 2), fill=(*particle, 45))
+    for x, y in pixel_points[::3]:
+        draw_glow.ellipse((x - 4, y - 4, x + 4, y + 4), fill=(*glow_color, 70))
 
     image = Image.alpha_composite(image.convert("RGBA"), glow.filter(ImageFilter.GaussianBlur(2)))
     draw = ImageDraw.Draw(image, "RGBA")
 
     for x, y in pixel_points:
-        draw.point((float(x), float(y)), fill=(*particle, 220))
+        draw.ellipse((x - 1.4, y - 1.4, x + 1.4, y + 1.4), fill=(*particle, 210))
 
     mx, my = mouse
     cx, cy = mx * width, (1.0 - my) * height
-    draw.ellipse((cx - 8, cy - 8, cx + 8, cy + 8), outline=(*attractor, 240), width=2)
-    draw.ellipse((cx - 2, cy - 2, cx + 2, cy + 2), fill=(*attractor, 255))
-    return image.convert("P", palette=Image.Palette.ADAPTIVE)
+    draw.ellipse((cx - 12, cy - 12, cx + 12, cy + 12), outline=(*attractor, 240), width=3)
+    draw.ellipse((cx - 3, cy - 3, cx + 3, cy + 3), fill=(*attractor, 255))
+    return image.convert("RGB")
 
 
 def main() -> None:
